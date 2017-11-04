@@ -3,44 +3,35 @@ from Tkinter import *
 from math import *
 
 
+class Input:
+    def __init__(self, frame, *args, **kwargs):
+        self.label = Label(frame, text=kwargs['label_text'])
+        self.label.grid(row=kwargs['row'], column=kwargs['column'])
+        self.entry = Entry(frame)
+        self.entry.grid(row=kwargs['row'], column=kwargs['column'] + 1)
+        
+
 class App:
-
     def __init__(self, master):
-
         # create a frame
         frame = Frame(master)
         frame.pack()
 
         # create a input for function
-        self.func_label = Label(frame, text='Function')
-        self.func_label.grid(row=0, column=0)
-        self.func_input = Entry(frame)
-        self.func_input.grid(row=0, column=1)
+        self.func = Input(frame, label_text='Function', row=0, column=0)
 
         # create a input for lower limit
-        self.lower_label = Label(frame, text='Lower Limit')
-        self.lower_label.grid(row=1, column=0)
-        self.lower_input = Entry(frame)
-        self.lower_input.grid(row=1, column=1)
+        self.lower = Input(frame, label_text='Lower Limit', row=1, column=0)
 
         # create a input for upper limit
-        self.upper_label = Label(frame, text='Upper Limit')
-        self.upper_label.grid(row=2, column=0)
-        self.upper_input = Entry(frame)
-        self.upper_input.grid(row=2, column=1)
+        self.upper = Input(frame, label_text='Upper Limit', row=2, column=0)
 
-        # create a input for step size
-        self.step_label = Label(frame, text='Steps')
-        self.step_label.grid(row=3, column=0)
-        self.step_input = Entry(frame)
-        self.step_input.grid(row=3, column=1)
+        # create a input for steps
+        self.steps = Input(frame, label_text='Steps (1-10000)', row=3, column=0)
 
         # create a output for result
-        self.result_label = Label(frame, text='Result')
-        self.result_label.grid(row=4, column=0)
-        self.result_input = Entry(frame)
-        self.result_input.grid(row=4, column=1)
-
+        self.result = Input(frame, label_text='Result', row=4, column=0)
+        
         # create a reset button
         self.cal_button = Button(frame, text="Reset", fg="black", command=self.reset)
         self.cal_button.grid(row=5, column=0)
@@ -51,36 +42,35 @@ class App:
 
     def calculate(self):
         # get inputs
-        fun = self.func_input.get()
-        lower = float(self.lower_input.get())
-        upper = float(self.upper_input.get())
-        steps = int(self.step_input.get())
+        fun = self.func.entry.get()
+        lower = float(self.lower.entry.get())
+        upper = float(self.upper.entry.get())
+        steps = int(self.steps.entry.get())
 
         # calculate delta x
-        del_x = (upper - lower)*1.0/steps
+        del_x = (upper - lower) * 1.0 / steps
 
         # calculate result using trapezoidal rule
         x = lower
         ans = 0
         ans = ans + eval(fun)
-        for i in range(1, steps-1):
+        for i in range(1, steps - 1):
             x = x + del_x
-            ans = ans + 2*eval(fun)
+            ans = ans + 2 * eval(fun)
         x = x + eval(fun)
         ans = ans + eval(fun)
         ans = ans * del_x / 2
 
         # write the result to output
-        self.result_input.delete(0, END)
-        self.result_input.insert(0, round(ans, 8))
+        self.result.entry.delete(0, END)
+        self.result.entry.insert(0, round(ans, 8))
 
     def reset(self):
-        self.func_input.delete(0, END)
-        self.lower_input.delete(0, END)
-        self.upper_input.delete(0, END)
-        self.step_input.delete(0, END)
-        self.result_input.delete(0, END)
-
+        self.func.entry.delete(0, END)
+        self.lower.entry.delete(0, END)
+        self.upper.entry.delete(0, END)
+        self.steps.entry.delete(0, END)
+        self.result.entry.delete(0, END)
 
 
 root = Tk()
@@ -88,4 +78,3 @@ root = Tk()
 app = App(root)
 
 root.mainloop()
-
