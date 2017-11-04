@@ -10,7 +10,7 @@ following command,
 ## Giving inputs
 Any function of x can be given as an input function. E.g. x+3, sin(x), log(x**2) etc.
 
-Lower and Upper limit can be any floating point value.
+Lower and upper limit can be any floating point value.
 
 Steps should be an integer between 1 and 10000.
 

@@ -17,19 +17,19 @@ class App:
         frame = Frame(master)
         frame.pack()
 
-        # create a input for function
+        # create an input for function
         self.func = Input(frame, label_text='Function', row=0, column=0)
 
-        # create a input for lower limit
+        # create an input for lower limit
         self.lower = Input(frame, label_text='Lower Limit', row=1, column=0)
 
-        # create a input for upper limit
+        # create an input for upper limit
         self.upper = Input(frame, label_text='Upper Limit', row=2, column=0)
 
-        # create a input for steps
+        # create an input for steps
         self.steps = Input(frame, label_text='Steps (1-10000)', row=3, column=0)
 
-        # create a output for result
+        # create an output for result
         self.result = Input(frame, label_text='Result', row=4, column=0)
         
         # create a reset button
