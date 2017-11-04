@@ -43,23 +43,21 @@ class App:
     def calculate(self):
         # get inputs
         fun = self.func.entry.get()
-        lower = float(self.lower.entry.get())
+        x = float(self.lower.entry.get())
         upper = float(self.upper.entry.get())
         steps = int(self.steps.entry.get())
 
         # calculate delta x
-        del_x = (upper - lower) * 1.0 / steps
+        del_x = (upper - x) / steps
 
         # calculate result using trapezoidal rule
-        x = lower
-        ans = 0
-        ans = ans + eval(fun)
-        for i in range(1, steps - 1):
-            x = x + del_x
-            ans = ans + 2 * eval(fun)
-        x = x + eval(fun)
-        ans = ans + eval(fun)
-        ans = ans * del_x / 2
+        ans = eval(fun)
+        for i in range(2, steps):
+            x += del_x
+            ans += 2 * eval(fun)
+        x += del_x
+        ans += eval(fun)
+        ans *= del_x / 2
 
         # write the result to output
         self.result.entry.delete(0, END)
